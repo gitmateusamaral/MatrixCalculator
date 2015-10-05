@@ -1,0 +1,122 @@
+﻿<Window x:Class="WPFlindao.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Background="Transparent"
+        Title="Matrix"
+        Height="600" Width="1200"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        MouseLeftButtonDown="GetPoint"
+        MouseRightButtonDown="Clear">
+    <Grid Name="content" Background="#ff2d2d30" Margin="0,00,20,20">
+        <Grid.Effect>
+            <DropShadowEffect BlurRadius="15" Direction="-90" RenderingBias="Quality" ShadowDepth="2"/>
+        </Grid.Effect>
+        <Rectangle Fill="#22264B70" HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="1180"  MouseLeftButtonDown="DragWindow" />
+        <Canvas Name="matrixCanvas" SnapsToDevicePixels="True" HorizontalAlignment="Left" Height="250" Width="250" Margin="930,330,0,0" VerticalAlignment="Top" Background="#FF27272A" ClipToBounds="True">
+        </Canvas>
+        <Label Content="Matrix" MouseLeftButtonDown="DragWindow" Foreground="#ffededed" Padding="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="19" Margin="320,10,319,0" FontSize="16" Width="45"/>
+        <Button Width="40" Height="40" Margin="1140,0,0,540" BorderThickness="0,0,0,0" Background="#00000000" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" Click="CloseWindow" MouseEnter="ChangeCloseIcon" MouseLeave="ChangeCloseIcon">
+            <Rectangle Width="40" Height="40">
+                <Rectangle.Fill>
+                    <ImageBrush x:Name="CloseIcon" ImageSource="Images\x.png" />
+                </Rectangle.Fill>
+            </Rectangle>
+        </Button>
+        <Button Width="40" Height="40" Margin="1100,0,40,540" BorderThickness="0" Background="#00000000" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" Click="MinimizeWindow" MouseEnter="ChangeMaximizeIcon" MouseLeave="ChangeMaximizeIcon">
+            <Rectangle Width="40" Height="40">
+                <Rectangle.Fill>
+                    <ImageBrush x:Name="MaximizeIcon" ImageSource="Images\m.png" />
+                </Rectangle.Fill>
+            </Rectangle>
+        </Button>
+        <Grid Margin="0,40,0,0">
+            <ComboBox Name="comboBoxOperation" Margin="22,323,918,167" IsEditable="False" IsEnabled="True" BorderBrush="{x:Null}" RenderTransformOrigin="0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="18.667" FontFamily="DejaVu Sans">
+                <ComboBox.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                        <GradientStop Color="White" Offset="1"/>
+                    </LinearGradientBrush>
+                </ComboBox.Background>
+                <ComboBoxItem Name="cbi1" IsSelected="True">Soma</ComboBoxItem>
+                <ComboBoxItem Name="cbi2">Subtração</ComboBoxItem>
+                <ComboBoxItem Name="cbi3">Multiplicação</ComboBoxItem>
+                <ComboBoxItem Name="cbi4">Determinante</ComboBoxItem>
+                <ComboBoxItem Name="cbi5">Multiplicação por número real</ComboBoxItem>
+                <ComboBoxItem Name="cbi6">Inversa</ComboBoxItem>
+                <ComboBoxItem Name="cbi7">Transposta</ComboBoxItem>
+            </ComboBox>
+            <TextBox Name="matrixInput1" TextChanged="matrixInputTextChanged" HorizontalAlignment="Left" Height="240" Margin="22,27,0,0" TextWrapping="Wrap" AcceptsReturn="True" VerticalAlignment="Top" Width="240" FontFamily="Courier New" Background="#22000000" Foreground="#FFEDEDED" CaretBrush="#FFEDEDED" FontSize="16"/>
+            <Label Name="validMatrix1" Content="No matrix" HorizontalAlignment="Left" Margin="197,272,0,0" VerticalAlignment="Top" Foreground="#FFEDEDED" Height="26" Width="65" HorizontalContentAlignment="Right"/>
+            <TextBox Name="matrixInput2" TextChanged="matrixInputTextChanged" HorizontalAlignment="Left" Height="240" Margin="282,27,0,0" TextWrapping="Wrap" AcceptsReturn="True" VerticalAlignment="Top" Width="240" FontFamily="Courier New" Background="#22000000" Foreground="#FFEDEDED" CaretBrush="#FFEDEDED" FontSize="16"/>
+            <Label Name="validMatrix2" Content="No matrix" HorizontalAlignment="Left" Margin="458,272,0,0" VerticalAlignment="Top" Foreground="#FFEDEDED" Height="26" Width="64" HorizontalContentAlignment="Right"/>
+            <Button HorizontalAlignment="Left" BorderThickness="0" Margin="282,323,0,0" VerticalAlignment="Top" Width="240" Height="50" Click="matrixOperation" BorderBrush="{x:Null}" Background="{x:Null}" >
+                <Rectangle Width="240" Height="50">
+                    <Rectangle.Fill>
+                        <ImageBrush x:Name="CalculateIcon" ImageSource="Images\calcButton.png" />
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Button>
+            <TextBox Name="displayMatrix" Text="{Binding Text, Mode=OneWay}" IsReadOnly="True" HorizontalAlignment="Left" Height="296" Margin="559,27,0,0" TextWrapping="Wrap" AcceptsReturn="True" VerticalAlignment="Top" Width="311" FontFamily="Courier New" Background="#22000000" Foreground="#FFEDEDED" CaretBrush="#FFEDEDED" FontSize="16"/>
+            <StackPanel x:Name="buttonsDisplay" HorizontalAlignment="Left" Height="212" Margin="951,10,0,0" VerticalAlignment="Top" Width="64"/>
+            <StackPanel x:Name= "xDisplay" HorizontalAlignment="Left" Height="212" Margin="1020,11,0,0" VerticalAlignment="Top" Width="64"/>
+            <StackPanel x:Name="yDisplay" HorizontalAlignment="Left" Height="213" Margin="1106,10,0,0" VerticalAlignment="Top" Width="64"/>
+            <Button Name="Rotate" Content="Rotate" HorizontalAlignment="Left" Margin="940,228,0,0" VerticalAlignment="Top" Width="74" Click="RotatePoly" Height="25" BorderBrush="{x:Null}"/>
+            <Button Name="Translate" Content="Translate" HorizontalAlignment="Left" Margin="1017,228,0,0" VerticalAlignment="Top" Width="74" Click="TranslatePoly" Height="25" BorderBrush="{x:Null}"/>
+            <Button Name="Scale" Content="Scale" HorizontalAlignment="Left" Margin="1095,228,0,0" VerticalAlignment="Top" Width="75" Click="ScalePoly" Height="25" BorderBrush="{x:Null}"/>
+            <TextBox Name="rotate" HorizontalAlignment="Left" Height="23" Margin="940,258,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="74" BorderBrush="{x:Null}"/>
+            <TextBox Name="transladarX" HorizontalAlignment="Left" Height="23" Margin="1017,258,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="35" BorderBrush="{x:Null}"/>
+            <TextBox Name="transladarY" HorizontalAlignment="Left" Height="23" Margin="1055,258,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" BorderBrush="{x:Null}"/>
+            <TextBox Name="escalonarX" HorizontalAlignment="Left" Height="23" Margin="1095,258,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="35" BorderBrush="{x:Null}"/>
+            <TextBox x:Name="escalonarY" HorizontalAlignment="Left" Height="23" Margin="1134,258,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" BorderBrush="{x:Null}"/>
+            <Label x:Name="formula" Content="Fórmula - >" HorizontalAlignment="Left" Margin="10,440,0,0" VerticalAlignment="Top" Foreground="#FFEDEDED" Height="26" Width="78" HorizontalContentAlignment="Right"/>
+            <TextBox x:Name="formulaInput" HorizontalAlignment="Left" Height="26" Margin="88,440,0,0" TextWrapping="Wrap" AcceptsReturn="True" VerticalAlignment="Top" Width="208" FontFamily="Courier New" Background="#22000000" Foreground="#FFEDEDED" CaretBrush="#FFEDEDED" FontSize="16"/>
+            <Button x:Name="formulaButton" Content="Generate" HorizontalAlignment="Left" Margin="301,440,0,0" VerticalAlignment="Top" Width="92" Height="26" BorderBrush="{x:Null}" Click="formulaGenerate"/>
+        </Grid>
+    </Grid>
+    <x:Code>
+        <![CDATA[
+        
+            bool closeIcon = true;
+            bool maximizeIcon = true;
+
+            private void DragWindow(object sender, MouseButtonEventArgs e) {
+                DragMove();
+            }
+            private void CloseWindow(object sender, RoutedEventArgs e) {
+                this.Close();
+            }
+            private void MinimizeWindow(object sender, RoutedEventArgs e) {
+                WindowState = WindowState.Minimized;
+            }
+            private void GetPoint(object sender, RoutedEventArgs e) {
+                GetMousePosition();
+            }
+            private void Clear(object sender, RoutedEventArgs e) {
+                ClearPoints();
+                buttonsDisplay.Children.Clear();
+                xDisplay.Children.Clear();
+                yDisplay.Children.Clear();
+            }
+            private void ChangeCloseIcon(object sender, RoutedEventArgs e) {
+                if(closeIcon) {
+                    CloseIcon.ImageSource = new BitmapImage(new Uri(@"..\..\Images\x_hover.png", UriKind.Relative));
+                    closeIcon = !closeIcon;
+                } else {
+                    CloseIcon.ImageSource = new BitmapImage(new Uri(@"..\..\Images\x.png", UriKind.Relative));
+                    closeIcon = !closeIcon;
+                }
+            }
+            private void ChangeMaximizeIcon(object sender, RoutedEventArgs e) {
+                if(maximizeIcon) {
+                    MaximizeIcon.ImageSource = new BitmapImage(new Uri(@"..\..\Images\m_hover.png", UriKind.Relative));
+                    maximizeIcon = !maximizeIcon;
+                } else {
+                    MaximizeIcon.ImageSource = new BitmapImage(new Uri(@"..\..\Images\m.png", UriKind.Relative));
+                    maximizeIcon = !maximizeIcon;
+                }
+            }
+        ]]>
+    </x:Code>
+</Window>
