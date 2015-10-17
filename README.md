@@ -11,6 +11,6 @@ A Matrix calculator with graphic representation and operations between matrix ma
 ___
 Uma calculadora de matriz com representação gráfica e operações entre matrizes feita por alunos do NAVE RJ utilizando WPF do visual studio.
 
-####Time:
+####Equipe:
 **[Mateus Amaral](https://github.com/gitmateusamaral), [Mauricio Silva](https://github.com/mauriciolfsilva), [João Ricardo](https://github.com/jrflga) e [Daniel Cavalli](https://github.com/denycavalli)**
 
