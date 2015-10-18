@@ -14,3 +14,7 @@ Uma calculadora de matriz com representação gráfica e operações entre matri
 ####Equipe:
 **[Mateus Amaral](https://github.com/gitmateusamaral), [Mauricio Silva](https://github.com/mauriciolfsilva), [João Ricardo](https://github.com/jrflga) e [Daniel Cavalli](https://github.com/denycavalli)**
 
+<p align="center">
+  <img src="http://i.imgur.com/S7dFZjw.png/">
+</p>
+
